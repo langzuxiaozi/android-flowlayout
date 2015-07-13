@@ -39,13 +39,14 @@ class LineDefinition {
     }
 
     public boolean canFit(View child) {
+        final FlowLayout.LayoutParams lp = (FlowLayout.LayoutParams) child.getLayoutParams();
         final int childLength;
         if (this.config.getOrientation() == FlowLayout.HORIZONTAL) {
             childLength = child.getMeasuredWidth();
         } else {
             childLength = child.getMeasuredHeight();
         }
-        return lineLengthWithSpacing + childLength <= maxLength;
+        return lineLengthWithSpacing + childLength + lp.getSpacingLength() <= maxLength;
     }
 
     public int getLineStartThickness() {
@@ -57,7 +58,7 @@ class LineDefinition {
     }
 
     public int getLineLength() {
-        return lineLength;
+        return lineLengthWithSpacing;
     }
 
     public int getLineStartLength() {
